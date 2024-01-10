@@ -21,7 +21,7 @@ function SingleServer() {
 	const [isConnected, setIsConnected] = useState<boolean>(false);
 	const [cpuUsage, setCpuUsage] = useState<Array<number>>([]);
 	const [memoryUsage, setMemoryUsage] = useState<Array<number>>([]);
-	const [cpuUsageTimeline, setCpuUsageTimeline] = useState<Array<any>>([[], [], [], []]);
+	const [cpuUsageTimeline, setCpuUsageTimeline] = useState<Array<any>>([]);
 	const [prevTime, setPrevTime] = useState<number>(0);
 	const [metric, setMetric] = useState<string>('all');
 	const prevMetricRef = useRef<string>('all');
@@ -48,7 +48,7 @@ function SingleServer() {
 		setPrevTime(0);
 
 		// Check If Server ID Is Not Undefined
-		if (serverId !== undefined && socketClient !== undefined) {
+		if (socketClient !== undefined) {
 
 			socketClient.onSocketOpened(() => {
 				if (!isConnected) {
@@ -68,12 +68,11 @@ function SingleServer() {
 						if (metric === 'all' || metric === 'cpu') {
 							setCpuUsage(message.cpu.map((item: any) => item.usage));
 							setCpuUsageTimeline((prev: any) => {
-								return [
-									[...prev[0], [message.timestamp, message.cpu[0].usage]],
-									[...prev[1], [message.timestamp, message.cpu[1].usage]],
-									[...prev[2], [message.timestamp, message.cpu[2].usage]],
-									[...prev[3], [message.timestamp, message.cpu[3].usage]],
-								];
+								const cpuUsageTemp: Array<any> = [];
+								message.cpu.forEach((item: any, index: number) => {
+									cpuUsageTemp.push([...prev[index] || [], [message.timestamp, item.usage]]);
+								});
+								return cpuUsageTemp;
 							});
 						}
 
@@ -91,7 +90,18 @@ function SingleServer() {
 				setSocketClient(newClient);
 			});
 		}
-	}, [socketClient, serverId]);
+	}, [socketClient]);
+
+	// Update ServerID
+	useEffect(() => {
+		if (serverId !== undefined && socketClient !== undefined) {
+			setIsConnected(false);
+			socketClient.closeConnection();
+			const newClient = new WebSocketConnection({baseURL: 'wss://lps-monitoring.up.railway.app/realtime'});
+			setSocketClient(newClient);
+			prevMetricRef.current = metric;
+		}
+	}, [serverId]);
 
 	// Update Metrics
 	useEffect(() => {
@@ -117,25 +127,15 @@ function SingleServer() {
 
 	// Update CPU Usage Charts Realtime
 	useEffect(() => {
-		streamCPURef.current?.chart?.updateSeries([
-			{
-				data: cpuUsageTimeline[0].slice(Math.max(cpuUsageTimeline[0].length - 20, 0)) || [],
-				name: 'CPU #1',
-				color: '#003f5c',
-			},{
-				data: cpuUsageTimeline[1].slice(Math.max(cpuUsageTimeline[1].length - 20, 0)) || [],
-				name: 'CPU #2',
-				color: '#58508d',
-			},{
-				data: cpuUsageTimeline[2].slice(Math.max(cpuUsageTimeline[2].length - 20, 0)) || [],
-				name: 'CPU #3',
-				color: '#bc5090',
-			},{
-				data: cpuUsageTimeline[3].slice(Math.max(cpuUsageTimeline[3].length - 20, 0)) || [],
-				name: 'CPU #4',
-				color: '#ff6361',
-			},
-		]);
+		const updatedSeries: Array<any> = [];
+		for (let i = 0; i < cpuUsageTimeline.length; i++) {
+			updatedSeries.push({
+				data: cpuUsageTimeline[i].slice(Math.max(cpuUsageTimeline[i].length - 20, 0)) || [],
+				name: `CPU #${i}`,
+				color: colors[i] || '#ec9b00',
+			})
+		}
+		streamCPURef.current?.chart?.updateSeries(updatedSeries);
 	}, [cpuUsageTimeline]);
 
 	// Static Options
@@ -243,7 +243,7 @@ function SingleServer() {
 			floating: true,
 			offsetY: 0,
 		}
-	}
+	};
 	const metricOptions = [
 		{
 			value: 'all',
@@ -257,7 +257,8 @@ function SingleServer() {
 			value: 'memory',
 			label: 'Memory'
 		}
-	]
+	];
+	const colors = ['#16716f', '#afab75', '#a00715', '#672f54', '#f30d63', '#8d6eb0', '#6f7c9b', '#764838', '#0ba2ca', '#581ac9', '#e67d04', '#e4152b'];
 
 	return (
 		<>
