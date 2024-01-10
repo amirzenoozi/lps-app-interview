@@ -28,7 +28,7 @@ jobs:
 
       - name: Connect To Server
         run: |
-          ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR && echo "Connected." && cd lps-interview && docker-compose down && docker-compose up -d && echo "Deployed." && exit
+          ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR && echo "Connected." && cd "${{ secrets.WORK_DIR }}" && docker-compose down && docker-compose up -d && echo "Deployed." && exit
 
       - name: Cleanup
         run: |
