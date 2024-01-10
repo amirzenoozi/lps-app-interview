@@ -27,4 +27,13 @@
             color: #FFC107;
         }
     }
+    &__controller {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background-color: #FFFFFF;
+        border-radius: px-to-rem(8);
+        padding: px-to-rem(16);
+    }
 }

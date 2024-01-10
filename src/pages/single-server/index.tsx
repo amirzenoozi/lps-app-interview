@@ -4,11 +4,12 @@ import Container from '../../components/container';
 import FlexCol from '../../components/flex-col';
 import FlexRow from '../../components/flex-row';
 import WidgetCard from '../../components/widget-card';
-import './style.scss';
+import RadioGroup from '../../components/radio-group';
 import { WebSocketConnection } from '../../modules/web-socket';
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 import { useParams } from 'react-router-dom';
+import './style.scss';
 
 function SingleServer() {
 	const { t } = useTranslation();
@@ -22,7 +23,10 @@ function SingleServer() {
 	const [memoryUsage, setMemoryUsage] = useState<Array<number>>([]);
 	const [cpuUsageTimeline, setCpuUsageTimeline] = useState<Array<any>>([[], [], [], []]);
 	const [prevTime, setPrevTime] = useState<number>(0);
+	const [metric, setMetric] = useState<string>('all');
+	const prevMetricRef = useRef<string>('all');
 
+	// Create Initial Socket Connection
 	useEffect(() => {
 		const socketConnection = new WebSocketConnection({baseURL: 'wss://lps-monitoring.up.railway.app/realtime'});
 		setSocketClient(socketConnection);
@@ -35,6 +39,7 @@ function SingleServer() {
 		};
 	}, []);
 
+	// Start Listening To Server
 	useEffect(() => {
 		// Reset All Data
 		setCpuUsage([]);
@@ -47,7 +52,7 @@ function SingleServer() {
 
 			socketClient.onSocketOpened(() => {
 				if (!isConnected) {
-					socketClient.emitSocketMessage({"type": "all", "machine": serverId, "subscribe": true});
+					socketClient.emitSocketMessage({"type": metric, "machine": serverId, "subscribe": true});
 				}
 			});
 
@@ -60,16 +65,21 @@ function SingleServer() {
 					// It Will Update Every 1 Second Since We Have Repeated Data
 					if (message.timestamp - prevTime > 1000) {
 						setPrevTime(message.timestamp);
-						setCpuUsage(message.cpu.map((item: any) => item.usage));
-						setMemoryUsage((prev: any) => [...prev, [message.timestamp, message.memory.usedPercentage]]);
-						setCpuUsageTimeline((prev: any) => {
-							return [
-								[...prev[0], [message.timestamp, message.cpu[0].usage]],
-								[...prev[1], [message.timestamp, message.cpu[1].usage]],
-								[...prev[2], [message.timestamp, message.cpu[2].usage]],
-								[...prev[3], [message.timestamp, message.cpu[3].usage]],
-							];
-						});
+						if (metric === 'all' || metric === 'cpu') {
+							setCpuUsage(message.cpu.map((item: any) => item.usage));
+							setCpuUsageTimeline((prev: any) => {
+								return [
+									[...prev[0], [message.timestamp, message.cpu[0].usage]],
+									[...prev[1], [message.timestamp, message.cpu[1].usage]],
+									[...prev[2], [message.timestamp, message.cpu[2].usage]],
+									[...prev[3], [message.timestamp, message.cpu[3].usage]],
+								];
+							});
+						}
+
+						if (metric === 'all' || metric === 'memory') {
+							setMemoryUsage((prev: any) => [...prev, [message.timestamp, message.memory.usedPercentage]]);
+						}
 					}
 				}
 			});
@@ -83,6 +93,18 @@ function SingleServer() {
 		}
 	}, [socketClient, serverId]);
 
+	// Update Metrics
+	useEffect(() => {
+		if (prevMetricRef.current !== metric) {
+			setIsConnected(false);
+			socketClient.closeConnection();
+			const newClient = new WebSocketConnection({baseURL: 'wss://lps-monitoring.up.railway.app/realtime'});
+			setSocketClient(newClient);
+			prevMetricRef.current = metric;
+		}
+	}, [metric]);
+
+	// Update Memory Usage Charts Realtime
 	useEffect(() => {
 		streamMemoryRef.current?.chart?.updateSeries([
 			{
@@ -93,6 +115,7 @@ function SingleServer() {
 		]);
 	}, [memoryUsage]);
 
+	// Update CPU Usage Charts Realtime
 	useEffect(() => {
 		streamCPURef.current?.chart?.updateSeries([
 			{
@@ -115,6 +138,7 @@ function SingleServer() {
 		]);
 	}, [cpuUsageTimeline]);
 
+	// Static Options
 	const radialOptions: ApexOptions = {
 		chart: {
 			height: 350,
@@ -220,6 +244,20 @@ function SingleServer() {
 			offsetY: 0,
 		}
 	}
+	const metricOptions = [
+		{
+			value: 'all',
+			label: 'All'
+		},
+		{
+			value: 'cpu',
+			label: 'CPU'
+		},
+		{
+			value: 'memory',
+			label: 'Memory'
+		}
+	]
 
 	return (
 		<>
@@ -227,7 +265,17 @@ function SingleServer() {
 				<h1 className={'page__title'}>Server Name: <span>{ serverId }</span></h1>
 				<Container>
 					<FlexRow>
-						{ cpuUsage.length > 0 && cpuUsage.map((item, index) => {
+						<FlexCol xs={24}>
+							<div className={'page__controller'}>
+								<RadioGroup
+									options={metricOptions}
+									value={metric}
+									name={'metric-type'}
+									clickHandler={(value: string) => setMetric(value)}
+								/>
+							</div>
+						</FlexCol>
+						{ ['all', 'cpu'].includes(metric) && cpuUsage.map((item, index) => {
 							return (
 								<FlexCol xs={24} sm={12} md={6} key={`cpu-${index}`}>
 									<WidgetCard title={`CPU-#${index}`}>
@@ -236,16 +284,18 @@ function SingleServer() {
 								</FlexCol>
 							)
 						})}
-						<FlexCol xs={24}>
+						{ ['all', 'memory'].includes(metric) && <FlexCol xs={24}>
 							<WidgetCard title={'Memory Usage'}>
-								<ReactApexChart ref={streamMemoryRef} options={lineOptions} type={'line'} series={memoryUsage} height={400} />
+								<ReactApexChart ref={streamMemoryRef} options={lineOptions} type={'line'}
+												series={memoryUsage} height={400}/>
 							</WidgetCard>
-						</FlexCol>
-						<FlexCol xs={24}>
+						</FlexCol> }
+						{ ['all', 'cpu'].includes(metric) && <FlexCol xs={24}>
 							<WidgetCard title={'All CPUs Usage'}>
-								<ReactApexChart ref={streamCPURef} options={lineOptions} type={'line'} series={cpuUsageTimeline} height={400} />
+								<ReactApexChart ref={streamCPURef} options={lineOptions} type={'line'}
+												series={cpuUsageTimeline} height={400}/>
 							</WidgetCard>
-						</FlexCol>
+						</FlexCol> }
 					</FlexRow>
 				</Container>
 			</section>
