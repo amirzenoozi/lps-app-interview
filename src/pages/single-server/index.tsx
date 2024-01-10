@@ -15,6 +15,8 @@ function SingleServer() {
 	const { serverId } = useParams<{ serverId: string }>();
 	const streamMemoryRef = useRef<any>(null);
 	const streamCPURef = useRef<any>(null);
+
+	const [socketClient, setSocketClient] = useState<any>();
 	const [isConnected, setIsConnected] = useState<boolean>(false);
 	const [cpuUsage, setCpuUsage] = useState<Array<number>>([]);
 	const [memoryUsage, setMemoryUsage] = useState<Array<number>>([]);
@@ -22,9 +24,26 @@ function SingleServer() {
 	const [prevTime, setPrevTime] = useState<number>(0);
 
 	useEffect(() => {
-		let socketClient = new WebSocketConnection({baseURL: 'wss://lps-monitoring.up.railway.app/realtime'});
+		const socketConnection = new WebSocketConnection({baseURL: 'wss://lps-monitoring.up.railway.app/realtime'});
+		setSocketClient(socketConnection);
 
-		if (serverId !== undefined) {
+		// Close Connection When Component Unmount
+		return () => {
+			if (socketClient !== undefined) {
+					socketClient.closeConnection();
+			}
+		};
+	}, []);
+
+	useEffect(() => {
+		// Reset All Data
+		setCpuUsage([]);
+		setMemoryUsage([]);
+		setCpuUsageTimeline([[], [], [], []]);
+		setPrevTime(0);
+
+		// Check If Server ID Is Not Undefined
+		if (serverId !== undefined && socketClient !== undefined) {
 
 			socketClient.onSocketOpened(() => {
 				if (!isConnected) {
@@ -58,14 +77,11 @@ function SingleServer() {
 			socketClient.onSocketErrored((err: any) => {
 				setIsConnected(false);
 				socketClient.closeConnection();
-				socketClient = new WebSocketConnection({baseURL: 'wss://lps-monitoring.up.railway.app/realtime'});
+				const newClient = new WebSocketConnection({baseURL: 'wss://lps-monitoring.up.railway.app/realtime'});
+				setSocketClient(newClient);
 			});
 		}
-
-		return () => {
-			socketClient.closeConnection();
-		};
-	}, [serverId]);
+	}, [socketClient, serverId]);
 
 	useEffect(() => {
 		streamMemoryRef.current?.chart?.updateSeries([
