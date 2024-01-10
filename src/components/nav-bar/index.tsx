@@ -20,6 +20,7 @@ const NavBar = () => {
 				{serverList.map((server, index) => {
 					return (
 						<NavLink
+							key={server}
 							to={`/servers/${server}`}
 							className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : "" }
 							data-tooltip-id="tooltip-area"
