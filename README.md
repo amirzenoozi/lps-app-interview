@@ -11,12 +11,12 @@ You can add your skills and experiences.
 - [x] Show CPU Usage TimeLine Realtime
 - [x] Show Memory Usage TimeLine Realtime
 - [x] Mobile First Design
-- [ ] Toggle Metrics (CPU, Memory, All)
+- [x] Toggle Metrics (CPU, Memory, All)
 - [x] Dockerfile
 - [x] GitHub Actions to Push Image to DockerHub
 - [ ] Deploy on external server
 - [ ] Write Unit Test
-- [ ] Reusable Components
+- [x] Reusable Components
 
 ## Run the project
 In the project directory, you can run:
