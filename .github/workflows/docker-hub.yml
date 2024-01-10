@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v1
       - name: Build & Push Image
@@ -18,3 +16,20 @@ jobs:
           echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{secrets.DOCKERHUB_USERNAME}}" --password-stdin
           docker image build . -t amirzenoozi/lps-react-app:latest
           docker push amirzenoozi/lps-react-app:latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH Keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+
+      - name: Connect To Server
+        run: |
+          ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR && echo "Connected." && cd lps-interview && docker-compose down && docker-compose up -d && echo "Deployed." && exit
+
+      - name: Cleanup
+        run: |
+          rm -rf ~/.ssh
