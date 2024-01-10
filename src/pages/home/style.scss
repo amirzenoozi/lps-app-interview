@@ -1,7 +1,7 @@
 @use "sass:math";
 @import '../../styles/index';
 
-.home {
+.page {
     position: relative;
     min-height: 100vh;
     display: flex;
@@ -10,6 +10,8 @@
     justify-content: center;
     box-sizing: border-box;
     overflow: hidden;
+    background-color: #0E131E;
+    padding: px-to-rem(16) px-to-rem(32);
 
     @include respond-to(md) {}
 }

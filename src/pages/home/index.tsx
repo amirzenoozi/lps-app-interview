@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import Container from '../../components/container';
 import FlexCol from '../../components/flex-col';
 import FlexRow from '../../components/flex-row';
+import WidgetCard from '../../components/widget-card';
 import './style.scss';
 import { WebSocketConnection } from '../../modules/web-socket';
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
-import WidgetCard from './components/widget-card';
 
 function Home() {
 	const { t } = useTranslation();
@@ -105,19 +105,25 @@ function Home() {
 				speed: 0,
 			},
 		},
+		grid: {
+			padding: {
+				bottom: 10
+			}
+		},
 		plotOptions: {
 			radialBar: {
 				startAngle: -135,
 				endAngle: 135,
 				dataLabels: {
 					name: {
+						show: false,
 						fontSize: '16px',
 						color: undefined,
-						offsetY: 120
+						offsetY: 40
 					},
 					value: {
-						offsetY: 76,
-						fontSize: '22px',
+						offsetY: 60,
+						fontSize: '16px',
 						color: undefined,
 						formatter: function (val: any) {
 							return val + "%";
@@ -196,7 +202,7 @@ function Home() {
 
 	return (
 		<>
-			<section className={'home'}>
+			<section className={'page'}>
 				<Container>
 					<FlexRow>
 						{ cpuUsage.length > 0 && cpuUsage.map((item, index) => {
