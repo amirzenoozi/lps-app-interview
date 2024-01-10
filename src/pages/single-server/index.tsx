@@ -224,6 +224,7 @@ function SingleServer() {
 	return (
 		<>
 			<section className={'page'}>
+				<h1 className={'page__title'}>Server Name: <span>{ serverId }</span></h1>
 				<Container>
 					<FlexRow>
 						{ cpuUsage.length > 0 && cpuUsage.map((item, index) => {
