@@ -28,9 +28,11 @@ jobs:
 
       - name: Connect To Server
         run: |
+          ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" "ls -ld '${{ secrets.WORK_DIR }}'"
+          ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" "chmod o+rx '${{ secrets.WORK_DIR }}'"
           ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
           && echo "Connected." \
-          && ls \
+          && ls -la \
           && cd "${{ secrets.WORK_DIR }}" \
           && docker-compose down \
           && docker-compose up -d \
