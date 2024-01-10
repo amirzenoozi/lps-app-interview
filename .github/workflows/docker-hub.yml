@@ -28,7 +28,9 @@ jobs:
 
       - name: Connect To Server
         run: |
-          ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR && echo "Connected." \
+          ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
+          && echo "Connected." \
+          && ls root/ \
           && cd "${{ secrets.WORK_DIR }}" \
           && docker-compose down \
           && docker-compose up -d \
