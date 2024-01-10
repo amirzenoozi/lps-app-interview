@@ -11,9 +11,11 @@
     box-sizing: border-box;
     overflow: hidden;
     background-color: #0E131E;
-    padding: px-to-rem(16) px-to-rem(32);
+    padding: px-to-rem(16) px-to-rem(16);
 
-    @include respond-to(md) {}
+    @include respond-to(md) {
+        padding: px-to-rem(16) px-to-rem(32);
+    }
 }
 
 .chartCard {
