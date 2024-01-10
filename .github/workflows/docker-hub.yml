@@ -1,4 +1,4 @@
-name: Portfolio CI/CD
+name: Docker Build
 
 on:
   push:
