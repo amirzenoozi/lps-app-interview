@@ -4,6 +4,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This project lets you have a simple portfolio website that is responsive and easy to use.
 You can add your skills and experiences.
 
+## Objectives
+
+1. [x] Get Data From Socket EndPoint (Without Socket.io)
+2. [x] Show Each Server in Single Page
+3. [x] Show CPU Usage TimeLine Realtime
+4. [x] Show Memory Usage TimeLine Realtime
+5. [x] Mobile First Design
+6. [ ] Toggle Metrics (CPU, Memory, All)
+7. [x] Dockerfile
+8. [x] GitHub Actions to Push Image to DockerHub
+9. [ ] Deploy on external server
+10. [ ] Write Unit Test
+11. [ ] Reusable Components
+
 ## Run the project
 In the project directory, you can run:
 1. ```yarn install```
