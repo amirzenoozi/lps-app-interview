@@ -30,7 +30,7 @@ jobs:
         run: |
           ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
           && echo "Connected." \
-          && ls root/ \
+          && ls \
           && cd "${{ secrets.WORK_DIR }}" \
           && docker-compose down \
           && docker-compose up -d \
