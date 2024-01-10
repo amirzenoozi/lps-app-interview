@@ -1,7 +1,5 @@
-# Linkly URL Shortener React App
+# LPS Dashboard Monitoring
 
-
-![](https://github.com/amirzenoozi/linkly-react-app/blob/main/Main.jpg)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This project lets you have a simple portfolio website that is responsive and easy to use.
 You can add your skills and experiences.
