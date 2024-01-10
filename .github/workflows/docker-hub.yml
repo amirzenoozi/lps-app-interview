@@ -32,7 +32,10 @@ jobs:
           ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" "chmod o+rx '${{ secrets.WORK_DIR }}'"
           ssh "${{ secrets.SSH_USER }}"@"${{ secrets.SSH_HOST }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
           && echo "Connected." \
+          && echo "======== LS =========" \
           && ls -la \
+          && echo "======== USER =========" \
+          && who \
           && echo "======== CD =========" \
           && cd "${{ secrets.WORK_DIR }}" \
           && docker-compose down \
