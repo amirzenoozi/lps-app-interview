@@ -6,17 +6,17 @@ You can add your skills and experiences.
 
 ## Objectives
 
-1. [x] Get Data From Socket EndPoint (Without Socket.io)
-2. [x] Show Each Server in Single Page
-3. [x] Show CPU Usage TimeLine Realtime
-4. [x] Show Memory Usage TimeLine Realtime
-5. [x] Mobile First Design
-6. [ ] Toggle Metrics (CPU, Memory, All)
-7. [x] Dockerfile
-8. [x] GitHub Actions to Push Image to DockerHub
-9. [ ] Deploy on external server
-10. [ ] Write Unit Test
-11. [ ] Reusable Components
+- [x] Get Data From Socket EndPoint (Without Socket.io)
+- [x] Show Each Server in Single Page
+- [x] Show CPU Usage TimeLine Realtime
+- [x] Show Memory Usage TimeLine Realtime
+- [x] Mobile First Design
+- [ ] Toggle Metrics (CPU, Memory, All)
+- [x] Dockerfile
+- [x] GitHub Actions to Push Image to DockerHub
+- [ ] Deploy on external server
+- [ ] Write Unit Test
+- [ ] Reusable Components
 
 ## Run the project
 In the project directory, you can run:
