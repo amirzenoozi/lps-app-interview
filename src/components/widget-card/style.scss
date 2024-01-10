@@ -1,3 +1,5 @@
+@import "src/styles/index";
+
 .widgetCard {
     display: flex;
     flex-direction: column;
@@ -13,7 +15,7 @@
         justify-content: space-between;
         background-color: rgba(#000000, 0.8);
         width: 100%;
-        padding: px-to-rem(4) px-to-rem(8);
+        padding: px-to-rem(12) px-to-rem(8);
         color: #FFFFFF;
     }
     &__content {
