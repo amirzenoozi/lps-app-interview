@@ -12,6 +12,7 @@ const meta = {
     text: { control: 'text', defaultValue: 'Buttons' },
     type: { control: 'select', defaultValue: 'button', options: ['button', 'submit', 'reset'] },
     iconPosition: { control: 'select', defaultValue: 'left', options: ['left', 'right'] },
+    iconName: { control: 'text', defaultValue: 'Save' },
     variant: {
       control: 'select',
       defaultValue: 'primary-dark',
@@ -29,7 +30,7 @@ export const Primary: Story = {
     variant: 'primary-dark',
     text: 'Button',
     icon: false,
-    iconName: 'Calendar',
+    iconName: 'Save',
     iconPosition: 'left',
     type: 'button',
     size: 24,
