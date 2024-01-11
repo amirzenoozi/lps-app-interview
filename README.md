@@ -12,13 +12,14 @@ You can add your skills and experiences.
 - [x] Show Memory Usage TimeLine Realtime
 - [x] Mobile First Design
 - [x] Toggle Metrics (CPU, Memory, All)
-- [x] Dockerfile
-- [x] GitHub Actions to Push Image to DockerHub
-- [x] Deploy on external server
 - [ ] Write Unit Test Using Jest
-- [ ] Automate the Deploy Steps
 - [x] Reusable Components
 - [x] Add StoryBook
+- [ ] Deployment
+  - [x] Dockerfile
+  - [x] GitHub Actions to Push Image to DockerHub
+  - [ ] Automate the Deploy Steps
+  - [x] Deploy on external server
 
 ## Run the project
 
