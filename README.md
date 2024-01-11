@@ -17,6 +17,7 @@ You can add your skills and experiences.
 - [ ] Unit Test
   - [x] Button Component
   - [x] Radio Group Component
+  - [x] WebSocket Module (All 5 Servers)
 - [ ] Deployment
   - [x] Dockerfile
   - [x] GitHub Actions to Push Image to DockerHub
