@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import Container from '../../components/container';
 import FlexCol from '../../components/flex-col';
 import FlexRow from '../../components/flex-row';
@@ -14,7 +13,6 @@ import metricOptions from '../../constants/metricOptions';
 import './style.scss';
 
 function SingleServer() {
-	const { t } = useTranslation();
 	const { serverId } = useParams<{ serverId: string }>();
 	const streamMemoryRef = useRef<any>(null);
 	const streamCPURef = useRef<any>(null);
