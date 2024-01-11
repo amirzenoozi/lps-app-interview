@@ -1,29 +1,8 @@
 import React, { useState } from 'react';
 import './style.scss';
+import { RadioGroupProps, RadioProps } from './type';
 
-interface RadioProps {
-	value: string;
-	label: string;
-	name: string;
-	checked: boolean;
-	clickHandler: (e: any) => void;
-}
-
-interface RadioOptions {
-	value: string;
-	label: string;
-}
-
-
-interface RadioGroupProps {
-	options: Array<RadioOptions>;
-	value: string;
-	name: string;
-	clickHandler: (value: string) => void;
-}
-
-
-const Radio: React.FC<RadioProps> = ({ value, label, name, checked, clickHandler }) => {
+const Radio = ({ value, label, name, checked, clickHandler }: RadioProps ) => {
 
 	const handleClick = (e: any) => {
 		clickHandler(e.target.value);
@@ -38,7 +17,7 @@ const Radio: React.FC<RadioProps> = ({ value, label, name, checked, clickHandler
 	);
 }
 
-const RadioGroup: React.FC<RadioGroupProps> = ({ options, value, name, clickHandler }) => {
+const RadioGroup= ({ options, value, name, clickHandler }: RadioGroupProps) => {
 	const [selected, setSelected] = useState<string>(value);
 
 	const RadioClickHandler = (value: string) => {
