@@ -5,11 +5,11 @@ export interface DataTableHeaderProp {
 	style: object;
 }
 
-export interface DataTableHeaderCell extends DataTableHeaderProp {
+export interface DataTableHeaderCellProp extends DataTableHeaderProp {
 	onHeaderClick: Function,
 }
 
-export interface DataTableCell {
+export interface DataTableCellProp {
 	value: any;
 	style: object;
 }
