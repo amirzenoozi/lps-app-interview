@@ -17,7 +17,7 @@ const Btn= ({
 }: BtnProps) => {
 	return (
 		<button
-			className={BtnClassGenerator(variant, icon, iconName, iconPosition, disable)}
+			className={BtnClassGenerator(variant, icon, iconPosition, disable)}
 			type={type}
 			disabled={disable}
 			{...props}
@@ -30,7 +30,7 @@ const Btn= ({
 	);
 }
 
-const BtnClassGenerator = (variant: string, icon: boolean, iconName: string, iconPosition: string, disable: boolean) => {
+const BtnClassGenerator = (variant: string, icon: boolean, iconPosition: string, disable: boolean) => {
 	let classes = [
 		'btn',
 		`btn--${variant}`,
