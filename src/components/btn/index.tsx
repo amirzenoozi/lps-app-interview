@@ -1,22 +1,11 @@
 import React from 'react';
-import Icon, {IconType} from '@icon-park/react/es/all';
+import Icon from '@icon-park/react/es/all';
+import BtnProps from './type';
 import './style.scss';
 
-interface FlexRowProps {
-	text?: string;
-	variant?: 'primary-dark' | 'primary-light' | 'secondary' | 'ghost-dark' | 'ghost-light' | 'linear-light';
-	icon?: boolean;
-	iconName?: IconType;
-	iconPosition?: 'left' | 'right';
-	type?: 'button' | 'submit' | 'reset';
-	size?: number;
-	to?: string;
-	disable?: boolean;
-}
-
-const Btn: React.FC<FlexRowProps> = ({
+const Btn= ({
 	text = '',
-	variant = 'primary',
+	variant = 'primary-dark',
 	icon = false,
 	iconName = '',
 	iconPosition = 'left',
@@ -25,7 +14,7 @@ const Btn: React.FC<FlexRowProps> = ({
 	disable = false,
 	to = '',
 	...props
-}) => {
+}: BtnProps) => {
 	return (
 		<button
 			className={BtnClassGenerator(variant, icon, iconName, iconPosition, disable)}
