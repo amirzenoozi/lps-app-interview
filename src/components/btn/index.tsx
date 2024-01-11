@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon from '@icon-park/react/es/all';
 import BtnProps from './type';
 import './style.scss';
+import IconsList from '../../constants/icons';
 
 const Btn= ({
 	text = '',
@@ -22,10 +22,10 @@ const Btn= ({
 			disabled={disable}
 			{...props}
 		>
-			{!icon && iconName && iconPosition === 'left' && <Icon type={iconName} theme="filled" size={size} />}
-			{icon && iconName && <Icon type={iconName} theme="filled" size={size} />}
-			{!icon && iconName && text}
-			{!icon && iconName && iconPosition === 'right' && <Icon type={iconName} theme="filled" size={size} />}
+			{!icon && iconName && iconPosition === 'left' && IconsList[iconName]}
+			{icon && iconName && IconsList[iconName]}
+			{!icon && text}
+			{!icon && iconName && iconPosition === 'right' && IconsList[iconName]}
 		</button>
 	);
 }

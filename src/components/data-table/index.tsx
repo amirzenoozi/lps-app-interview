@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
-import Icon from '@icon-park/react/es/all';
-import { DataTableProps, DataTableHeaderProp, DataTableCellProp, DataTableHeaderCellProp} from './type';
+import { DataTableProps, DataTableHeaderProp, DataTableCellProp, DataTableHeaderCellProp } from './type';
+import { SortTwo } from '@icon-park/react';
 
 const DataTableHeader = ({slug, title, sortable, style, onHeaderClick}: DataTableHeaderCellProp) => {
 	const headerClick = () => {
@@ -14,7 +14,7 @@ const DataTableHeader = ({slug, title, sortable, style, onHeaderClick}: DataTabl
 	return (
 		<th style={style} onClick={headerClick}>
 			{title}
-			{sortable && <Icon type={'SortTwo'} theme={'outline'} size={14}/>}
+			{sortable && <SortTwo theme={'outline'} size={14}/>}
 		</th>
 	);
 };

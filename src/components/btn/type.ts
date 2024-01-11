@@ -1,10 +1,10 @@
-import { IconType } from '@icon-park/react/es/all';
+import IconsList from '../../constants/icons';
 
 interface BtnProps {
 	text?: string;
 	variant?: 'primary-dark' | 'primary-light' | 'secondary' | 'ghost-dark' | 'ghost-light' | 'linear-light';
 	icon?: boolean;
-	iconName?: IconType | '';
+	iconName?: keyof typeof IconsList | '';
 	iconPosition?: 'left' | 'right';
 	type?: 'button' | 'submit' | 'reset';
 	size?: number;
