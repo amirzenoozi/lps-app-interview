@@ -15,7 +15,7 @@ jobs:
         run: |
           echo "Running Unit Tests"
           yarn install
-          yarn run test
+          yarn run test:ci
           echo "Unit Tests Completed"
   build:
     needs: test
