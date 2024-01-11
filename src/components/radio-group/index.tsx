@@ -10,8 +10,8 @@ const Radio = ({ value, label, name, checked, clickHandler }: RadioProps ) => {
 
 	return (
 		<div className={'radio'}>
-			<input type='radio' value={value} name={name} onChange={handleClick} checked={checked} />
-			<label>{ label }</label>
+			<input id={`radio-${name}-${value}`} type='radio' value={value} name={name} onChange={handleClick} checked={checked} />
+			<label htmlFor={`radio-${name}-${value}`}>{ label }</label>
 			<span className={'radio-selector'} />
 		</div>
 	);
