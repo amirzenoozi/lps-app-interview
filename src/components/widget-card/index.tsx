@@ -1,13 +1,9 @@
 import React from 'react';
 import Icon from '@icon-park/react/es/all';
 import './style.scss';
+import WidgetCardProps from './type';
 
-interface FlexRowProps {
-	title: string,
-	children?: React.ReactNode;
-}
-
-const WidgetCard: React.FC<FlexRowProps> = ({ title, children }) => {
+const WidgetCard= ({ title, children }: WidgetCardProps) => {
 	return (
 		<div className={'widgetCard'}>
 			<div className={'widgetCard__header'}>
