@@ -78,6 +78,11 @@
     }
   },
   "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "type.ts",
+      ".stories.ts"
+    ],
     "coverageThreshold": {
       "global": {
         "lines": 80
