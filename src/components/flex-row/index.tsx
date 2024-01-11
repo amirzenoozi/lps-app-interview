@@ -1,12 +1,8 @@
 import React from 'react';
 import './style.scss';
+import FlexRowProps from './type';
 
-interface FlexRowProps {
-	stretch?: boolean;
-	children: React.ReactNode;
-}
-
-const FlexRow: React.FC<FlexRowProps> = ({ stretch = false, children }) => {
+const FlexRow = ({ stretch = false, children }: FlexRowProps) => {
 	return (
 		<div className={['row', stretch && 'row--stretch'].join(' ')}>
 			{ children }
