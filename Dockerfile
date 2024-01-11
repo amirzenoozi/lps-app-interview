@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 # Install application dependencies.
-RUN yarn install --production
+RUN yarn install
 
 # Install serve node package.
 RUN yarn global add serve
