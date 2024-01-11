@@ -1,11 +1,9 @@
 import React from 'react';
+import FlexRowProps from './type';
 import './style.scss';
 
-interface FlexRowProps {
-	children: React.ReactNode;
-}
 
-const Container: React.FC<FlexRowProps> = ({ children }) => {
+const Container = ({ children }: FlexRowProps) => {
 	return (
 		<div className={'container'}>
 			{ children }
