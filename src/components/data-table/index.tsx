@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 import Icon from '@icon-park/react/es/all';
-import { DataTableProps, DataTableHeader, DataTableCell, DataTableHeaderCell} from './type';
+import { DataTableProps, DataTableHeaderProp, DataTableCell, DataTableHeaderCell} from './type';
 
 const DataTableHeader = ({slug, title, sortable, style, onHeaderClick}: DataTableHeaderCell) => {
 	const headerClick = () => {
@@ -35,7 +35,7 @@ const DataTable = ({headers, records, onHeaderClick}: DataTableProps) => {
 			<table border={0} cellSpacing={0}>
 				<thead>
 				<tr>
-					{headers.map((item: DataTableHeader) => {
+					{headers.map((item: DataTableHeaderProp) => {
 						return <DataTableHeader key={item.slug} onHeaderClick={onHeaderClick} {...item} />;
 					})}
 				</tr>
@@ -44,7 +44,7 @@ const DataTable = ({headers, records, onHeaderClick}: DataTableProps) => {
 				{records.map((item: any, index: number) => {
 					return (
 						<tr key={index}>
-							{headers.map((header: DataTableHeader) => {
+							{headers.map((header: DataTableHeaderProp) => {
 								return <DataTableCell key={header.slug} value={item[header.slug]} style={header.style} />;
 							})}
 						</tr>

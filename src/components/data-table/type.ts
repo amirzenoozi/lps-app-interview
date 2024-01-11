@@ -1,11 +1,11 @@
-export interface DataTableHeader {
+export interface DataTableHeaderProp {
 	slug: string;
 	title: string;
 	sortable: boolean;
 	style: object;
 }
 
-export interface DataTableHeaderCell extends DataTableHeader {
+export interface DataTableHeaderCell extends DataTableHeaderProp {
 	onHeaderClick: Function,
 }
 
@@ -15,7 +15,7 @@ export interface DataTableCell {
 }
 
 export interface DataTableProps {
-	headers: Array<DataTableHeader>;
+	headers: Array<DataTableHeaderProp>;
 	records: Array<any>;
 	onHeaderClick: Function;
 }
