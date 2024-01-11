@@ -13,7 +13,7 @@ jobs:
       - name: Unit Tests
         run: |
           echo "Running Unit Tests"
-          yarn run install
+          yarn install
           yar run test
           echo "Unit Tests Completed"
   build:
