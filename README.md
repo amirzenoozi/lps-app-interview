@@ -21,6 +21,7 @@ You can add your skills and experiences.
 - [x] Add StoryBook
 
 ## Run the project
+
 In the project directory, you can run:
 1. ```yarn install```
 2. ```yarn start```
