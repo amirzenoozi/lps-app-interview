@@ -11,10 +11,12 @@ You can add your skills and experiences.
 - [x] Show CPU Usage TimeLine Realtime
 - [x] Show Memory Usage TimeLine Realtime
 - [x] Mobile First Design
-- [x] Toggle Metrics (CPU, Memory, All)
-- [ ] Write Unit Test Using Jest
+- [x] Toggle Metrics (CPU, Memory, All
 - [x] Reusable Components
-- [x] Add StoryBook
+- [x] Add StoryBook)
+- [ ] Unit Test
+  - [x] Button Component
+  - [x] Radio Group Component
 - [ ] Deployment
   - [x] Dockerfile
   - [x] GitHub Actions to Push Image to DockerHub
