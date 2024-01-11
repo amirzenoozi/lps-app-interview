@@ -6,9 +6,11 @@ import FlexRow from '../../components/flex-row';
 import WidgetCard from '../../components/widget-card';
 import RadioGroup from '../../components/radio-group';
 import { WebSocketConnection } from '../../modules/web-socket';
-import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 import { useParams } from 'react-router-dom';
+import lineChartOptions from './lineChartOptions';
+import radialChartOptions from './radialChartOptions';
+import metricOptions from '../../constants/metricOptions';
 import './style.scss';
 
 function SingleServer() {
@@ -139,125 +141,6 @@ function SingleServer() {
 	}, [cpuUsageTimeline]);
 
 	// Static Options
-	const radialOptions: ApexOptions = {
-		chart: {
-			height: 350,
-			type: 'radialBar',
-			offsetY: -10,
-			animations: {
-				enabled: false,
-				easing: 'linear',
-				speed: 0,
-			},
-		},
-		grid: {
-			padding: {
-				bottom: 10
-			}
-		},
-		plotOptions: {
-			radialBar: {
-				startAngle: -135,
-				endAngle: 135,
-				dataLabels: {
-					name: {
-						show: false,
-						fontSize: '16px',
-						color: undefined,
-						offsetY: 40
-					},
-					value: {
-						offsetY: 60,
-						fontSize: '16px',
-						color: undefined,
-						formatter: function (val: any) {
-							return val + "%";
-						}
-					}
-				}
-			}
-		},
-		fill: {
-			type: 'solid',
-			colors: [({ value }: any) => {
-				if(value < 20) {
-					return '#5e943b'
-				} else if (value >= 21 && value < 40) {
-					return '#a5ac3e'
-				}else if (value >= 41 && value < 60) {
-					return '#ffdc1b'
-				}else if (value >= 61 && value < 80) {
-					return '#ec9b00'
-				}else if (value >= 81) {
-					return '#d9534f'
-				}
-			}],
-		},
-		stroke: {
-			dashArray: 4,
-		},
-	};
-	const lineOptions: ApexOptions = {
-		chart: {
-			id: 'realtime',
-			height: 350,
-			type: 'line',
-			animations: {
-				enabled: false,
-				easing: 'linear',
-				dynamicAnimation: {
-					speed: 200
-				}
-			},
-			toolbar: {
-				show: false
-			},
-			zoom: {
-				enabled: false
-			}
-		},
-		grid: {
-			padding: {
-				bottom: 40
-			}
-		},
-		dataLabels: {
-			enabled: false
-		},
-		stroke: {
-			curve: 'smooth'
-		},
-		markers: {
-			size: 0
-		},
-		xaxis: {
-			type: 'datetime',
-		},
-		yaxis: {
-			max: 100,
-			min: 0,
-		},
-		legend: {
-			position: 'bottom',
-			horizontalAlign: 'center',
-			floating: true,
-			offsetY: 0,
-		}
-	};
-	const metricOptions = [
-		{
-			value: 'all',
-			label: 'All'
-		},
-		{
-			value: 'cpu',
-			label: 'CPU'
-		},
-		{
-			value: 'memory',
-			label: 'Memory'
-		}
-	];
 	const colors = ['#16716f', '#afab75', '#a00715', '#672f54', '#f30d63', '#8d6eb0', '#6f7c9b', '#764838', '#0ba2ca', '#581ac9', '#e67d04', '#e4152b'];
 
 	return (
@@ -280,20 +163,20 @@ function SingleServer() {
 							return (
 								<FlexCol xs={24} sm={12} md={6} key={`cpu-${index}`}>
 									<WidgetCard title={`CPU-#${index}`}>
-										<ReactApexChart options={{...radialOptions, labels: [`CPU-#${index}`]}} series={[item]} type="radialBar" height={'100%'} width={'100%'} />
+										<ReactApexChart options={{...radialChartOptions, labels: [`CPU-#${index}`]}} series={[item]} type="radialBar" height={'100%'} width={'100%'} />
 									</WidgetCard>
 								</FlexCol>
 							)
 						})}
 						{ ['all', 'memory'].includes(metric) && <FlexCol xs={24}>
 							<WidgetCard title={'Memory Usage'}>
-								<ReactApexChart ref={streamMemoryRef} options={lineOptions} type={'line'}
+								<ReactApexChart ref={streamMemoryRef} options={lineChartOptions} type={'line'}
 												series={memoryUsage} height={400}/>
 							</WidgetCard>
 						</FlexCol> }
 						{ ['all', 'cpu'].includes(metric) && <FlexCol xs={24}>
 							<WidgetCard title={'All CPUs Usage'}>
-								<ReactApexChart ref={streamCPURef} options={lineOptions} type={'line'}
+								<ReactApexChart ref={streamCPURef} options={lineChartOptions} type={'line'}
 												series={cpuUsageTimeline} height={400}/>
 							</WidgetCard>
 						</FlexCol> }
