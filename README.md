@@ -23,9 +23,12 @@ You can add your skills and experiences.
 ## Run the project
 
 In the project directory, you can run:
-1. ```yarn install```
-2. ```yarn start```
-3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- ``` git clone git@github.com:amirzenoozi/lps-app-interview.git ```
+- ``` cd lps-app-interview ```
+- ``` git config core.hooksPath .githooks ```
+- ``` yarn install ```
+- ``` yarn start ```
+- Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Other Available Scripts
 
