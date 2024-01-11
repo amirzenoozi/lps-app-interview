@@ -14,9 +14,11 @@ You can add your skills and experiences.
 - [x] Toggle Metrics (CPU, Memory, All)
 - [x] Dockerfile
 - [x] GitHub Actions to Push Image to DockerHub
-- [ ] Deploy on external server
-- [ ] Write Unit Test
+- [x] Deploy on external server
+- [ ] Write Unit Test Using Jest
+- [ ] Automate the Deploy Steps
 - [x] Reusable Components
+- [x] Add StoryBook
 
 ## Run the project
 In the project directory, you can run:
