@@ -11,6 +11,6 @@ const metricOptions = [
 		value: 'memory',
 		label: 'Memory'
 	}
-];
+]
 
-export default metricOptions;
+export default metricOptions
