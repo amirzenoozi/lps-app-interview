@@ -19,5 +19,9 @@
         ".css"
     ],
     "rules": {
+        "no-tabs": "off",
+        "@typescript-eslint/indent": ["error", "tab"],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }
