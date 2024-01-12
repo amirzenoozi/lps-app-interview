@@ -5,9 +5,6 @@ import type HyperlinkProps from './type'
 const Hyperlink = ({
 	text = '',
 	variant = 'primary-dark',
-	icon = false,
-	iconName = '',
-	iconPosition = 'left',
 	type = 'button',
 	size = 24,
 	to = '',
@@ -17,7 +14,7 @@ const Hyperlink = ({
 }: HyperlinkProps) => {
 	return (
 		<a
-			className={BtnClassGenerator(variant, icon, iconName, iconPosition)}
+			className={BtnClassGenerator(variant)}
 			type={type}
 			href={to}
 			target={target}
@@ -28,13 +25,10 @@ const Hyperlink = ({
 	)
 }
 
-const BtnClassGenerator = (variant: string, icon: boolean, iconName: string, iconPosition: string) => {
+const BtnClassGenerator = (variant: string) => {
 	const classes = [
 		'hyperlink',
-		`hyperlink--${variant}`,
-		iconPosition === 'left' && 'hyperlink--prepend',
-		iconPosition === 'right' && 'hyperlink--append',
-		icon && 'hyperlink--icon'
+		`hyperlink--${variant}`
 	]
 	return classes.join(' ')
 }
