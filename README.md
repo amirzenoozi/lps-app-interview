@@ -18,6 +18,11 @@ You can add your skills and experiences.
   - [x] Button Component
   - [x] Radio Group Component
   - [x] WebSocket Module (All 5 Servers)
+  - [x] FlexRow
+  - [x] FlexCol
+  - [x] Container
+  - [x] DataTable
+  - [x] HyperLink
 - [ ] Deployment
   - [x] Dockerfile
   - [x] GitHub Actions to Push Image to DockerHub
