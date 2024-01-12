@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import './style.scss';
-import { RadioGroupProps, RadioProps } from './type';
+import React, { useState } from 'react'
+import './style.scss'
+import { type RadioGroupProps, type RadioProps } from './type'
 
-const Radio = ({ value, label, name, checked, clickHandler }: RadioProps ) => {
-
+const Radio = ({ value, label, name, checked, clickHandler }: RadioProps) => {
 	const handleClick = (e: any) => {
-		clickHandler(e.target.value);
-	};
+		clickHandler(e.target.value)
+	}
 
 	return (
 		<div className={'radio'}>
@@ -14,16 +13,16 @@ const Radio = ({ value, label, name, checked, clickHandler }: RadioProps ) => {
 			<label htmlFor={`radio-${name}-${value}`}>{ label }</label>
 			<span className={'radio-selector'} />
 		</div>
-	);
+	)
 }
 
-const RadioGroup= ({ options, value, name, clickHandler }: RadioGroupProps) => {
-	const [selected, setSelected] = useState<string>(value);
+const RadioGroup = ({ options, value, name, clickHandler }: RadioGroupProps) => {
+	const [selected, setSelected] = useState<string>(value)
 
 	const RadioClickHandler = (value: string) => {
-		setSelected(value);
-		clickHandler(value);
-	};
+		setSelected(value)
+		clickHandler(value)
+	}
 
 	return (
 		<div className={'radio-group'}>
@@ -37,10 +36,10 @@ const RadioGroup= ({ options, value, name, clickHandler }: RadioGroupProps) => {
 						checked={selected === item.value}
 						clickHandler={RadioClickHandler}
 					/>
-				);
+				)
 			})}
 		</div>
-	);
+	)
 }
 
-export default RadioGroup;
+export default RadioGroup

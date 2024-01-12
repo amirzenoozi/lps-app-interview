@@ -1,9 +1,9 @@
-import React from 'react';
-import Icon from '@icon-park/react/es/all';
-import './style.scss';
-import WidgetCardProps from './type';
+import React from 'react'
+import Icon from '@icon-park/react/es/all'
+import './style.scss'
+import type WidgetCardProps from './type'
 
-const WidgetCard= ({ title, children }: WidgetCardProps) => {
+const WidgetCard = ({ title, children }: WidgetCardProps) => {
 	return (
 		<div className={'widgetCard'}>
 			<div className={'widgetCard__header'}>
@@ -14,8 +14,7 @@ const WidgetCard= ({ title, children }: WidgetCardProps) => {
 				{ children }
 			</div>
 		</div>
-	);
+	)
 }
 
-export default WidgetCard;
-
+export default WidgetCard

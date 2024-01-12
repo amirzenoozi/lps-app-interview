@@ -1,6 +1,6 @@
-import React from 'react';
-import './style.scss';
-import HyperlinkProps from './type';
+import React from 'react'
+import './style.scss'
+import type HyperlinkProps from './type'
 
 const Hyperlink = ({
 	text = '',
@@ -25,18 +25,18 @@ const Hyperlink = ({
 		>
 			{children}
 		</a>
-	);
+	)
 }
 
 const BtnClassGenerator = (variant: string, icon: boolean, iconName: string, iconPosition: string) => {
-	let classes = [
+	const classes = [
 		'hyperlink',
 		`hyperlink--${variant}`,
 		iconPosition === 'left' && 'hyperlink--prepend',
 		iconPosition === 'right' && 'hyperlink--append',
-		icon && 'hyperlink--icon',
-	];
-	return classes.join(' ');
+		icon && 'hyperlink--icon'
+	]
+	return classes.join(' ')
 }
 
-export default Hyperlink;
+export default Hyperlink

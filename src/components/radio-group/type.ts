@@ -1,20 +1,19 @@
 export interface RadioProps {
-	value: string;
-	label: string;
-	name: string;
-	checked: boolean;
-	clickHandler: (e: any) => void;
+	value: string
+	label: string
+	name: string
+	checked: boolean
+	clickHandler: (e: any) => void
 }
 
 export interface RadioOptions {
-	value: string;
-	label: string;
+	value: string
+	label: string
 }
 
-
 export interface RadioGroupProps {
-	options: Array<RadioOptions>;
-	value: string;
-	name: string;
-	clickHandler: (value: string) => void;
+	options: RadioOptions[]
+	value: string
+	name: string
+	clickHandler: (value: string) => void
 }
