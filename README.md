@@ -14,6 +14,7 @@ You can add your skills and experiences.
 - [x] Toggle Metrics (CPU, Memory, All
 - [x] Reusable Components
 - [x] Add StoryBook
+- [x] Aggregation of Data From Servers (Memory)
 - [ ] Unit Test
   - [x] Button Component
   - [x] Radio Group Component
