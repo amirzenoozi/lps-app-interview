@@ -13,7 +13,7 @@ You can add your skills and experiences.
 - [x] Mobile First Design
 - [x] Toggle Metrics (CPU, Memory, All
 - [x] Reusable Components
-- [x] Add StoryBook)
+- [x] Add StoryBook
 - [ ] Unit Test
   - [x] Button Component
   - [x] Radio Group Component
@@ -26,8 +26,8 @@ You can add your skills and experiences.
 - [ ] Deployment
   - [x] Dockerfile
   - [x] GitHub Actions to Push Image to DockerHub
-  - [ ] Automate the Deploy Steps
   - [x] Deploy on external server
+  - [ ] Automate the Deploy Steps
 
 ## Run the project
 
