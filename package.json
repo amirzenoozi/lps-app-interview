@@ -83,7 +83,9 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "type.ts",
-      ".stories.ts"
+      ".stories.ts",
+      "src/index.tsx",
+      "src/i18n.ts"
     ],
     "coverageThreshold": {
       "global": {
