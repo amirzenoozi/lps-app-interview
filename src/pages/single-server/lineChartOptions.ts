@@ -1,4 +1,4 @@
-import { ApexOptions } from 'apexcharts';
+import { type ApexOptions } from 'apexcharts'
 
 const lineChartOptions: ApexOptions = {
 	chart: {
@@ -34,18 +34,18 @@ const lineChartOptions: ApexOptions = {
 		size: 0
 	},
 	xaxis: {
-		type: 'datetime',
+		type: 'datetime'
 	},
 	yaxis: {
 		max: 100,
-		min: 0,
+		min: 0
 	},
 	legend: {
 		position: 'bottom',
 		horizontalAlign: 'center',
 		floating: true,
-		offsetY: 0,
+		offsetY: 0
 	}
-};
+}
 
-export default lineChartOptions;
+export default lineChartOptions

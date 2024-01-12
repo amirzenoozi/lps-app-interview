@@ -1,4 +1,4 @@
-import { ApexOptions } from 'apexcharts';
+import { type ApexOptions } from 'apexcharts'
 
 const radialChartOptions: ApexOptions = {
 	chart: {
@@ -8,8 +8,8 @@ const radialChartOptions: ApexOptions = {
 		animations: {
 			enabled: false,
 			easing: 'linear',
-			speed: 0,
-		},
+			speed: 0
+		}
 	},
 	grid: {
 		padding: {
@@ -32,7 +32,7 @@ const radialChartOptions: ApexOptions = {
 					fontSize: '16px',
 					color: undefined,
 					formatter: function (val: any) {
-						return val + "%";
+						return val + '%'
 					}
 				}
 			}
@@ -41,22 +41,22 @@ const radialChartOptions: ApexOptions = {
 	fill: {
 		type: 'solid',
 		colors: [({ value }: any) => {
-			if(value < 20) {
+			if (value < 20) {
 				return '#5e943b'
 			} else if (value >= 21 && value < 40) {
 				return '#a5ac3e'
-			}else if (value >= 41 && value < 60) {
+			} else if (value >= 41 && value < 60) {
 				return '#ffdc1b'
-			}else if (value >= 61 && value < 80) {
+			} else if (value >= 61 && value < 80) {
 				return '#ec9b00'
-			}else if (value >= 81) {
+			} else if (value >= 81) {
 				return '#d9534f'
 			}
-		}],
+		}]
 	},
 	stroke: {
-		dashArray: 4,
-	},
-};
+		dashArray: 4
+	}
+}
 
-export default radialChartOptions;
+export default radialChartOptions

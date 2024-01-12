@@ -1,7 +1,7 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import NavBar from '../../components/nav-bar';
-import './style.scss';
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import NavBar from '../../components/nav-bar'
+import './style.scss'
 
 const Layout = () => {
 	return (
@@ -9,7 +9,7 @@ const Layout = () => {
 			<NavBar />
 			<Outlet />
 		</>
-	);
+	)
 }
 
-export default Layout;
+export default Layout
