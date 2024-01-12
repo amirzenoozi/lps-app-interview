@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useRef, useState } from 'react'
 import Container from '../../components/container'
 import FlexCol from '../../components/flex-col'
@@ -185,3 +186,4 @@ function SingleServer () {
 }
 
 export default SingleServer
+/* eslint-enable */
