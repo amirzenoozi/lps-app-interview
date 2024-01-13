@@ -84,6 +84,7 @@
       "/node_modules/",
       "type.ts",
       ".stories.ts",
+      ".stories.tsx",
       "src/index.tsx",
       "src/i18n.ts"
     ],
