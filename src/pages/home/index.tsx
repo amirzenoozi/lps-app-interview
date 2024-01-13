@@ -6,56 +6,37 @@ import WidgetCard from '../../components/widget-card'
 import './style.scss'
 import useMemoryWebSocket from '../../Hooks/useMemoryWebSocket'
 import ReactApexChart from 'react-apexcharts'
-import { type ApexOptions } from 'apexcharts'
+import pieChartOptions from './pieChartOptions'
 
 function Home () {
+	const socketEndpoint: string = 'wss://lps-monitoring.up.railway.app/realtime'
 	const [memoryUsage, setMemoryUsage] = useState<number[]>([])
 	const [freeMemory, setFreeMemory] = useState<number[]>([])
-	const firstServer = useMemoryWebSocket('wss://lps-monitoring.up.railway.app/realtime', 'server01')
-	const secondServer = useMemoryWebSocket('wss://lps-monitoring.up.railway.app/realtime', 'server02')
-	const thirdServer = useMemoryWebSocket('wss://lps-monitoring.up.railway.app/realtime', 'server03')
-	const forthServer = useMemoryWebSocket('wss://lps-monitoring.up.railway.app/realtime', 'server04')
-	const fifthServer = useMemoryWebSocket('wss://lps-monitoring.up.railway.app/realtime', 'server05')
+	const firstServer = useMemoryWebSocket(socketEndpoint, 'server01')
+	const secondServer = useMemoryWebSocket(socketEndpoint, 'server02')
+	const thirdServer = useMemoryWebSocket(socketEndpoint, 'server03')
+	const forthServer = useMemoryWebSocket(socketEndpoint, 'server04')
+	const fifthServer = useMemoryWebSocket(socketEndpoint, 'server05')
 
 	useEffect(() => {
 		setMemoryUsage([
-			normlizeData(firstServer.usage),
-			normlizeData(secondServer.usage),
-			normlizeData(thirdServer.usage),
-			normlizeData(forthServer.usage),
-			normlizeData(fifthServer.usage)
+			normalizeData(firstServer.usage),
+			normalizeData(secondServer.usage),
+			normalizeData(thirdServer.usage),
+			normalizeData(forthServer.usage),
+			normalizeData(fifthServer.usage)
 		])
 		setFreeMemory([
-			normlizeData(firstServer.free),
-			normlizeData(secondServer.free),
-			normlizeData(thirdServer.free),
-			normlizeData(forthServer.free),
-			normlizeData(fifthServer.free)
+			normalizeData(firstServer.free),
+			normalizeData(secondServer.free),
+			normalizeData(thirdServer.free),
+			normalizeData(forthServer.free),
+			normalizeData(fifthServer.free)
 		])
 	}, [firstServer, secondServer, thirdServer, forthServer, fifthServer])
 
-	const normlizeData = (data: number) => {
+	const normalizeData = (data: number) => {
 		return Math.round((data / 500) * 100)
-	}
-
-	const pieChartOptions: ApexOptions = {
-		chart: {
-			animations: {
-				enabled: false
-			}
-		},
-		labels: ['Server 01', 'Server 02', 'Server 03', 'Server 04', 'Server 05'],
-		responsive: [{
-			breakpoint: 480,
-			options: {
-				chart: {
-					width: 200
-				},
-				legend: {
-					position: 'bottom'
-				}
-			}
-		}]
 	}
 
 	return (

@@ -14,6 +14,7 @@ import metricOptions from '../../constants/metricOptions'
 import './style.scss'
 
 function SingleServer () {
+	const socketEndpoint: string = 'wss://lps-monitoring.up.railway.app/realtime'
 	const { serverId } = useParams<{ serverId: string }>()
 	const streamMemoryRef = useRef<any>(null)
 	const streamCPURef = useRef<any>(null)
@@ -29,7 +30,7 @@ function SingleServer () {
 
 	// Create Initial Socket Connection
 	useEffect(() => {
-		const socketConnection = new WebSocketConnection({ baseURL: 'wss://lps-monitoring.up.railway.app/realtime' })
+		const socketConnection = new WebSocketConnection({ baseURL: socketEndpoint })
 		setSocketClient(socketConnection)
 
 		// Close Connection When Component Unmount
@@ -86,7 +87,7 @@ function SingleServer () {
 			socketClient.onSocketErrored((err: any) => {
 				setIsConnected(false)
 				socketClient.closeConnection()
-				const newClient = new WebSocketConnection({ baseURL: 'wss://lps-monitoring.up.railway.app/realtime' })
+				const newClient = new WebSocketConnection({ baseURL: socketEndpoint })
 				setSocketClient(newClient)
 			})
 		}
@@ -97,7 +98,7 @@ function SingleServer () {
 		if (serverId !== undefined && socketClient !== undefined) {
 			setIsConnected(false)
 			socketClient.closeConnection()
-			const newClient = new WebSocketConnection({ baseURL: 'wss://lps-monitoring.up.railway.app/realtime' })
+			const newClient = new WebSocketConnection({ baseURL: socketEndpoint })
 			setSocketClient(newClient)
 			prevMetricRef.current = metric
 		}
@@ -108,7 +109,7 @@ function SingleServer () {
 		if (prevMetricRef.current !== metric) {
 			setIsConnected(false)
 			socketClient.closeConnection()
-			const newClient = new WebSocketConnection({ baseURL: 'wss://lps-monitoring.up.railway.app/realtime' })
+			const newClient = new WebSocketConnection({ baseURL: socketEndpoint })
 			setSocketClient(newClient)
 			prevMetricRef.current = metric
 		}
