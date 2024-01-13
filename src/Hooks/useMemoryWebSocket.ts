@@ -48,7 +48,7 @@ const useMemoryWebSocket = (url: string, serverId: string) => {
 			socketClient.onSocketErrored(() => {
 				setIsConnected(false)
 				socketClient.closeConnection()
-				const newClient = new WebSocketConnection({ baseURL: 'wss://lps-monitoring.up.railway.app/realtime' })
+				const newClient = new WebSocketConnection({ baseURL: url })
 				setSocketClient(newClient)
 			})
 		}
