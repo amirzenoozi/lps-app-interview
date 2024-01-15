@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useRef, useState } from 'react'
 import Container from '../../components/container'
 import FlexCol from '../../components/flex-col'
@@ -11,6 +10,8 @@ import { useParams } from 'react-router-dom'
 import lineChartOptions from './lineChartOptions'
 import radialChartOptions from './radialChartOptions'
 import metricOptions from '../../constants/metricOptions'
+import { type ServerMetricMessage, type cpuMetricMessage } from '../../types/server-metric-message'
+import type SubscribeMessage from '../../types/subscribe-message'
 import './style.scss'
 
 function SingleServer () {
@@ -57,34 +58,34 @@ function SingleServer () {
 				}
 			})
 
-			socketClient.onSocketMessage((msg: any) => {
-				if ('success' in JSON.parse(msg.data)) {
-					setIsConnected(JSON.parse(msg.data).success)
+			socketClient.onSocketMessage((msg: { data: string }) => {
+				const message: ServerMetricMessage | SubscribeMessage = JSON.parse(msg.data)
+				if ('success' in message) {
+					setIsConnected(Boolean(message.success))
 				} else {
-					const message = JSON.parse(msg.data)
-
 					// It Will Update Every 1 Second Since We Have Repeated Data
 					if (message.timestamp - prevTime > 1000) {
-						setPrevTime(message.timestamp)
-						if (metric === 'all' || metric === 'cpu') {
-							setCpuUsage(message.cpu.map((item: any) => item.usage))
-							setCpuUsageTimeline((prev: any) => {
+						setPrevTime(Number(message.timestamp))
+						if ('cpu' in message) {
+							// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+							setCpuUsage(message.cpu !== undefined ? message.cpu.map((item: cpuMetricMessage) => item.usage) : [])
+							setCpuUsageTimeline((prev: any[]) => {
 								const cpuUsageTemp: any[] = []
-								message.cpu.forEach((item: any, index: number) => {
-									cpuUsageTemp.push([...prev[index] || [], [message.timestamp, item.usage]])
+								message.cpu?.forEach((item: any, index: number) => {
+									cpuUsageTemp.push([...prev[index] ?? [], [message.timestamp, item.usage]])
 								})
 								return cpuUsageTemp
 							})
 						}
 
-						if (metric === 'all' || metric === 'memory') {
-							setMemoryUsage((prev: any) => [...prev, [message.timestamp, message.memory.usedPercentage]])
+						if ('memory' in message) {
+							setMemoryUsage((prev: any) => [...prev, [message.timestamp, message.memory?.usedPercentage]])
 						}
 					}
 				}
 			})
 
-			socketClient.onSocketErrored((err: any) => {
+			socketClient.onSocketErrored(() => {
 				setIsConnected(false)
 				socketClient.closeConnection()
 				const newClient = new WebSocketConnection({ baseURL: socketEndpoint })
@@ -131,9 +132,9 @@ function SingleServer () {
 		const updatedSeries: any[] = []
 		for (let i = 0; i < cpuUsageTimeline.length; i++) {
 			updatedSeries.push({
-				data: cpuUsageTimeline[i].slice(Math.max(cpuUsageTimeline[i].length - 20, 0)) || [],
+				data: cpuUsageTimeline[i].slice(Math.max(cpuUsageTimeline[i].length - 20, 0)) ?? [],
 				name: `CPU #${i}`,
-				color: colors[i] || '#ec9b00'
+				color: colors[i] ?? '#ec9b00'
 			})
 		}
 		streamCPURef.current?.chart?.updateSeries(updatedSeries)
