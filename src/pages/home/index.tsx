@@ -4,7 +4,7 @@ import FlexCol from '../../components/flex-col'
 import FlexRow from '../../components/flex-row'
 import WidgetCard from '../../components/widget-card'
 import './style.scss'
-import useMemoryWebSocket from '../../Hooks/useMemoryWebSocket'
+import useMemoryWebSocket from '../../hooks/useMemoryWebSocket'
 import ReactApexChart from 'react-apexcharts'
 import pieChartOptions from './pieChartOptions'
 

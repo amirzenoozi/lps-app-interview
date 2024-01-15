@@ -1,6 +1,7 @@
-/* eslint-disable */
 import { useEffect, useState } from 'react'
 import { WebSocketConnection } from '../modules/web-socket'
+import { type ServerMetricMessage } from '../types/server-metric-message'
+import type SubscribeMessage from '../types/subscribe-message'
 
 const useMemoryWebSocket = (url: string, serverId: string) => {
 	const [socketClient, setSocketClient] = useState<any>(null)
@@ -31,16 +32,15 @@ const useMemoryWebSocket = (url: string, serverId: string) => {
 				}
 			})
 
-			socketClient.onSocketMessage((msg: any) => {
-				if ('success' in JSON.parse(msg.data)) {
-					setIsConnected(JSON.parse(msg.data).success)
+			socketClient.onSocketMessage((msg: { data: string }) => {
+				const message: SubscribeMessage | ServerMetricMessage = JSON.parse(msg.data)
+				if ('success' in message) {
+					setIsConnected(Boolean(message.success))
 				} else {
-					const message = JSON.parse(msg.data)
-
 					// It Will Update Every 1 Second Since We Have Repeated Data
 					if (message.timestamp - prevTime > 1000) {
-						setPrevTime(message.timestamp)
-						setMemoryUsage((prev: any) => message.memory.usedPercentage)
+						setPrevTime(Number(message.timestamp))
+						setMemoryUsage((prev: number) => message.memory?.usedPercentage ?? 0)
 					}
 				}
 			})
@@ -58,12 +58,9 @@ const useMemoryWebSocket = (url: string, serverId: string) => {
 				socketClient.closeConnection()
 			}
 		}
-
 	}, [socketClient])
 
-
-	return  { usage: memoryUsage, free: (100 - memoryUsage), client: socketClient }
+	return { usage: memoryUsage, free: (100 - memoryUsage), client: socketClient }
 }
 
 export default useMemoryWebSocket
-/* eslint-enable */
